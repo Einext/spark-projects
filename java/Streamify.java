@@ -60,7 +60,7 @@ public class Streamify extends Thread {
 
 	public static void main(String[] args) {
 		if (args.length != 3) {
-			System.out.println("Usage: stream <file name> <port number> <lines per seconds>");
+			System.out.println("Usage: $ java Streamify <file name> <port number> <lines per seconds>");
 			System.exit(NORM_PRIORITY);
 		}
 		String filename = args[0];
