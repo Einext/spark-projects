@@ -7,7 +7,7 @@ public class Streamify extends Thread {
 	private String filename;
 	private int lines_per_sec = 1000;
 
-	public Stream(String filename, int port, int rate) throws IOException {
+	public Streamify(String filename, int port, int rate) throws IOException {
 		serverSocket = new ServerSocket(port);
 		this.filename = filename;
 		this.lines_per_sec = rate;
@@ -67,9 +67,9 @@ public class Streamify extends Thread {
 		int port = Integer.parseInt(args[1]);
 		int rate = Integer.parseInt(args[2]);
 
-		Stream t = null;
+		Streamify t = null;
 		try {
-			t = new Stream(filename, port, rate);
+			t = new Streamify(filename, port, rate);
 			t.start();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -81,4 +81,3 @@ public class Streamify extends Thread {
 		}
 	}
 }
-
