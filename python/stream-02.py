@@ -15,17 +15,18 @@ def startSSC():
         pairs = words.map(lambda word: (word, 1))
         wordCounts = pairs.reduceByKey(lambda x, y: x + y)
 
-
-
-
+        #Window Operation
         windowedWordCounts = pairs.\
                 filter(lambda pair: pair[0].\
                 startswith("#")).\
                 reduceByKeyAndWindow(lambda x, y: x + y, lambda x, y: x - y, 30, 10)
 
-        # Print the first ten elements of each RDD generated in this DStream to the console
-        wordCounts.saveAsTextFiles("data/raw","text")
+        # Save the raw data in HDFS
+        lines.saveAsTextFiles("data/raw","text")
+
+        # Print the values of the word counts in window
         windowedWordCounts.pprint(25)
+
         return ssc
 
 
@@ -33,4 +34,3 @@ ssc = StreamingContext.getOrCreate(checkpoint_dir, startSSC)
 
 ssc.start()             # Start the computation
 ssc.awaitTermination()  # Wait for the computation to terminate
-
