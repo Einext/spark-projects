@@ -6,6 +6,7 @@ from pyspark.streaming import StreamingContext
 sc = SparkContext("local[*]", "NetworkWordCount")
 ssc = StreamingContext(sc, 1)
 
+# lines is a DStream
 lines = ssc.socketTextStream("localhost", 9999)
 words = lines.flatMap(lambda line: line.split())
 pairs = words.map(lambda word: (word, 1))
